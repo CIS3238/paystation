@@ -138,4 +138,22 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+   @Test
+    public void shouldbe4for10()
+            throws IllegalCoinException {
+        ps.addPayment(10);
+        
+        assertEquals("Should be 4 mins for 10 cents in display",
+                4, ps.readDisplay());
+       
+    }
+    @Test
+    public void shouldDoNothing()
+            throws IllegalCoinException {
+       
+        assertEquals("Cancel should clear display",
+                "Hello","Hello");
+       
+    }
+   
 }
