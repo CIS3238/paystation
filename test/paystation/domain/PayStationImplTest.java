@@ -138,4 +138,24 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+    
+    /**
+     * Verify that empty returns the amount inserted
+     */
+    @Test
+    public void shouldReturnAmount() throws Exception{
+        ps.addPayment(5);
+        assertEquals("Empty should return amount inserted", 5, ps.empty());
+    }
+    
+    /**
+     * Verify canceled amount does not add to return value of empty
+     */
+    @Test
+    public void shouldNotAddToEmpty() throws Exception{
+        ps.addPayment(5);
+        int emptiedVal = ps.empty();
+        ps.cancel();
+        
+    }
 }
