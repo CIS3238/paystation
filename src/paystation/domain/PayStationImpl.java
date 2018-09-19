@@ -1,5 +1,7 @@
 package paystation.domain;
 
+import java.util.Map;
+
 /**
  * Implementation of the pay station.
  *
@@ -23,12 +25,15 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    Map<Integer, Integer> coins = null;
 
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
         switch (coinValue) {
-            case 5: break;
+            case 5:
+                coins.put(coinValue, 1);
+                break;
             case 10: break;
             case 25: break;
             default:
@@ -51,11 +56,18 @@ public class PayStationImpl implements PayStation {
     }
 
     @Override
-    public void cancel() {
+    public Map<Integer,Integer> cancel() {
         reset();
+        return coins;
     }
     
     private void reset() {
         timeBought = insertedSoFar = 0;
+    }
+    
+    public int empty(){
+        int total = insertedSoFar;
+        reset();
+        return total;
     }
 }
