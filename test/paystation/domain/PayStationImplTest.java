@@ -176,6 +176,19 @@ public class PayStationImplTest {
         assertEquals("There should only be one coin in the CoinMap.",
                 cancelReturn.getTotal(), 1);
     }
+    
+    @Test 
+    public void cancelReturnsMapWithMixtureOfCoins()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.addPayment(10);
+        
+        CoinMap cancelReturn = ps.cancel();
+        assertEquals("There should be four coins in the coinMap.",
+                cancelReturn.getTotal(), 4);
+    }
 
     
     
