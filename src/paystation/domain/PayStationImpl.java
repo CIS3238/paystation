@@ -23,6 +23,7 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private CoinMap map = new CoinMap();
 
     @Override
     public void addPayment(int coinValue)
@@ -36,6 +37,7 @@ public class PayStationImpl implements PayStation {
         }
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
+        map.addCoin(coinValue);
     }
 
     @Override
@@ -46,16 +48,35 @@ public class PayStationImpl implements PayStation {
     @Override
     public Receipt buy() {
         Receipt r = new ReceiptImpl(timeBought);
+        map.clear();
         reset();
         return r;
     }
 
     @Override
-    public void cancel() {
+    public CoinMap cancel() {
+        CoinMap receiptMap = new CoinMap();
+        receiptMap.initialize(map);
+        
+        map.clear();
         reset();
+        return receiptMap;
+        
     }
     
     private void reset() {
         timeBought = insertedSoFar = 0;
+    }
+    
+    @Override
+    public int empty() {
+        int temp = insertedSoFar;
+        timeBought = insertedSoFar = 0;
+        return temp;
+    }
+    
+    @Override
+    public CoinMap getCoinMap() {
+        return map;
     }
 }

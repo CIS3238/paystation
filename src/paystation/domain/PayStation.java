@@ -48,6 +48,11 @@ public interface PayStation {
 
     /**
      * Cancel the present transaction. Resets the machine for a new transaction.
+     * @return a CoinMap object upon cancellation
      */
-    public void cancel();
+    public CoinMap cancel();
+    
+    public int empty();
+    
+    public CoinMap getCoinMap();
 }
