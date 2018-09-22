@@ -189,6 +189,22 @@ public class PayStationImplTest {
         assertEquals("There should be four coins in the coinMap.",
                 cancelReturn.getTotal(), 4);
     }
+    
+    @Test 
+    public void cancelReturnsMapWithoutOmittedCoin()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(10);
+        
+        CoinMap cancelReturn = ps.cancel();
+        
+        assertEquals("There should be three coins in the coinMap",
+                cancelReturn.getTotal(), 3);
+        
+        assertEquals("There should be no quarter in the return.",
+                cancelReturn.quarters, 0);
+    }
 
     
     
