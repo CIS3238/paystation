@@ -147,5 +147,18 @@ public class PayStationImplTest {
                 5, ps.empty());
     }
     
+     @Test
+    public void cancelledEntryDoesntAddToEmpty()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        int emptyReturnBeforeCancel = ps.empty();
+        ps.addPayment(5);
+        ps.cancel();
+        int emptyReturnAfterCancel = ps.empty();
+        assertTrue("Empty() should not return greater upon second call",
+                emptyReturnBeforeCancel >= emptyReturnAfterCancel);
+    }
+
+    
     
 }
