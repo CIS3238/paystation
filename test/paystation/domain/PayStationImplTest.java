@@ -167,6 +167,15 @@ public class PayStationImplTest {
         assertEquals("Empty() should set the total to zero",
                 ps.readDisplay(), 0);
     }
+    
+    @Test
+    public void cancelReturnsMapWithOneCoin()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        CoinMap cancelReturn = ps.cancel();
+        assertEquals("There should only be one coin in the CoinMap.",
+                cancelReturn.getTotal(), 1);
+    }
 
     
     
