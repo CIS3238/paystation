@@ -205,6 +205,25 @@ public class PayStationImplTest {
         assertEquals("There should be no quarter in the return.",
                 cancelReturn.quarters, 0);
     }
+    
+    @Test
+    public void callToCancelClearsTheCoinMap()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        
+        CoinMap c1 = ps.cancel();
+        int total1 = c1.getTotal();
+        CoinMap c2 = ps.getCoinMap();
+        int total2 = c2.getTotal();
+        
+        assertTrue("The first total should have the old CoinMaps' total (more than 0)",
+                total1 > 0);
+        
+        assertTrue("The second total should be 0 because cancel() clears the old Map",
+                total2 == 0);
+    }
+
 
     
     
