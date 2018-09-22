@@ -158,6 +158,15 @@ public class PayStationImplTest {
         assertTrue("Empty() should not return greater upon second call",
                 emptyReturnBeforeCancel >= emptyReturnAfterCancel);
     }
+    
+    @Test
+    public void callToEmptyResetsToZero()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        int emptyReturn = ps.empty();
+        assertEquals("Empty() should set the total to zero",
+                ps.readDisplay(), 0);
+    }
 
     
     
