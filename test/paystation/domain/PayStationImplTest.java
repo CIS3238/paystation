@@ -225,6 +225,23 @@ public class PayStationImplTest {
     }
 
 
-    
+    @Test
+    public void callToBuyClearsTheCoinMap()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.addPayment(10);
+        
+        CoinMap c1 = ps.getCoinMap();
+        int total1 = c1.getTotal();
+        
+        ps.buy();
+        int total2 = c1.getTotal();
+        
+        assertTrue("The first total should have the CoinMaps' total before the buy(more than 0)",
+                total1 > 0);
+        
+        assertTrue("The second total should be 0 because buy() clears the old Map",
+                total2 == 0);
+    }
     
 }
