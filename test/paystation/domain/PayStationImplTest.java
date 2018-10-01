@@ -147,6 +147,7 @@ public class PayStationImplTest {
                 5, ps.empty());
     }
     
+    //Here is a test comment to make sure I'm connected to that repo
      @Test
     public void cancelledEntryDoesntAddToEmpty()
             throws IllegalCoinException {
