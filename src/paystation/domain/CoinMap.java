@@ -11,10 +11,10 @@ package paystation.domain;
  */
 public class CoinMap {
     
-    int nickles = 0;
-    int dimes = 0;
-    int quarters = 0;
-    int total = 0;
+    private int nickles = 0;
+    private int dimes = 0;
+    private int quarters = 0;
+    private int total = 0;
     
     public void CoinMap() {
     
