@@ -7,7 +7,7 @@ package paystation.domain;
 
 /**
  *
- * @author bennyboyTheBrokenToy
+ * @author 
  */
 public class LinearRateStrategy implements Strategy{
     @Override

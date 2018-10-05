@@ -7,15 +7,14 @@ package paystation.domain;
 
 /**
  *
- * @author bennyboyTheBrokenToy
+ * @author 
  */
 public class RateStrategy {
     private Strategy strategy;
     
     public RateStrategy(Strategy strategy) {
         this.strategy = strategy;
-    }
-    
+    } 
     
     public int calculateTime(int amount) {
         return strategy.calculateTime(amount);

@@ -7,7 +7,7 @@ package paystation.domain;
 
 /**
  *
- * @author kyle
+ * @author 
  */
 public class CoinMap {
     

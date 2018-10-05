@@ -7,16 +7,24 @@ package paystation.domain;
 import java.util.Calendar;
 /**
  *
- * @author bennyboyTheBrokenToy
+ * 
  */
+
+/*
+    The AlternatingRateStrategy looks different than the Linear and Progressive 
+    strategies because instead of just detailing an algorithm, the Alternating 
+    strategy requires an extra level of abstraction. In this case, a state shifting class.
+
+    When the AlternatingRateStrategy has been assigned a state (WeekdayState or WeekendState),
+    The calculateTime() method is called for that state. 
+*/
 public class AlternatingRateStrategy implements Strategy {
     
-    private State state = new WeekendState();
+    private State state;
     int time = 0;
-    enum Days {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY;}
     
-    public void AlternatingRateStrategy() {
-        
+    AlternatingRateStrategy(State state) {
+        this.state = state;
     }
     
     public void setState(State state) {

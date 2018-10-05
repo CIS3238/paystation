@@ -7,7 +7,7 @@ package paystation.domain;
 
 /**
  *
- * @author bennyboyTheBrokenToy
+ * @author 
  */
 public interface Strategy {
     public int calculateTime(int amount);
