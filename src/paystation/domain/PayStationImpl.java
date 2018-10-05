@@ -1,5 +1,4 @@
 package paystation.domain;
-
 /**
  * Implementation of the pay station.
  *
@@ -24,6 +23,7 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     private CoinMap map = new CoinMap();
+    RateStrategy rateStrategy = new RateStrategy(new AlternatingRateStrategy());
 
     @Override
     public void addPayment(int coinValue)
@@ -36,8 +36,9 @@ public class PayStationImpl implements PayStation {
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
         insertedSoFar += coinValue;
-        timeBought = insertedSoFar / 5 * 2;
+        timeBought = rateStrategy.calculateTime(insertedSoFar);
         map.addCoin(coinValue);
+        
     }
 
     @Override
