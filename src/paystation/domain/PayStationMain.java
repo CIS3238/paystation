@@ -42,6 +42,7 @@ public class PayStationMain{
                             "1. Linear\n" +
                             "2. Progressive\n" +
                             "3. Alternating");
+                    choice=s.nextInt();
                     switch (choice) {
                         case 1:
                             payStation.rateStrategy = new RateStrategy(new LinearRateStrategy());
