@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package paystation.domain;
-import java.util.Calendar;
 /**
  *
  * 
@@ -23,8 +22,9 @@ public class AlternatingRateStrategy implements Strategy {
     private State state;
     int time = 0;
     
-    AlternatingRateStrategy(State state) {
-        this.state = state;
+    AlternatingRateStrategy() {
+        //default to weekday state for testing
+        this.state = new WeekdayState();
     }
     
     public void setState(State state) {
@@ -37,6 +37,7 @@ public class AlternatingRateStrategy implements Strategy {
     
     @Override
     public int calculateTime(int amount) {
+        //this.state = dayOfWeek();
         time = this.state.calculateTime(amount);
         return time;
     }

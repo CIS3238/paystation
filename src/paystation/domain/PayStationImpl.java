@@ -39,7 +39,7 @@ public class PayStationImpl implements PayStation {
     strategy, there must exist methods accessed during runtime (in the main method) in order to alternate between strategies.
     This is effectively a State design pattern encapsulated within a Strategy design pattern.
     */
-    RateStrategy rateStrategy = new RateStrategy(new AlternatingRateStrategy(state));
+    RateStrategy rateStrategy = new RateStrategy(new AlternatingRateStrategy());
 
     @Override
     public void addPayment(int coinValue)

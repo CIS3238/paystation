@@ -18,11 +18,11 @@ public class WeekendState implements State {
         }
         
         else if ((150 <= amount) && (amount < 350)) {
-            time = (amount-150)*(3/10) + 60;
+            time = (int)((amount-150)*(3.0/10.0) + 60);
         }
         
         else {
-            time = (amount-350)/5 + 120;
+            time = (int)((amount-350)/5.0 + 120);
         }
     
         return time;
