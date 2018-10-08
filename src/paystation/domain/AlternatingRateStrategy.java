@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package paystation.domain;
+import java.util.Scanner;
 /**
  *
  * 
@@ -20,12 +21,56 @@ package paystation.domain;
 public class AlternatingRateStrategy implements Strategy {
     
     private State state;
+    private boolean isWeekday;
     int time = 0;
-    
+     
     AlternatingRateStrategy() {
-        //default to weekday state for testing
-        this.state = new WeekdayState();
+        Scanner s = new Scanner(System.in);
+        
+        int choice;
+        System.out.println("\nYou've chosen the Alternating Rate strategy. What day of the week is it?\n" +
+                                    "1. Sunday\n" +
+                                    "2. Monday\n" +
+                                    "3. Tuesday\n" +
+                                    "4. Wednesday\n" +
+                                    "5. Thursday\n" +
+                                    "6. Friday\n" +
+                                    "7. Saturday");
+        choice = s.nextInt();
+        switch(choice) {
+            case 1:
+                isWeekday = false; 
+                break;
+            case 2:
+                isWeekday = true;
+                break;
+            case 3:
+                isWeekday = true;
+                break;
+            case 4:
+                isWeekday = true;
+                break;
+            case 5:
+                isWeekday = true;
+                break;
+            case 6:
+                isWeekday = true;
+                break;
+            case 7:
+                isWeekday = false;
+                break;
+            default:
+                System.out.println("You chose a day that does not exist!\n");
+                break;
+        }
+                            
+                            if(isWeekday) {
+                                this.state = new WeekdayState();
+                            } else {
+                                this.state = new WeekendState();
+                            }
     }
+    
     
     public void setState(State state) {
         this.state = state;

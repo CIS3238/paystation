@@ -24,22 +24,16 @@ public class PayStationImpl implements PayStation {
     private int timeBought;
     
     //Coinmap is an object containing the number of each coin inserted prior to a cancel or buy call
-    private final CoinMap map = new CoinMap();
-    
-    /*
-    State here is initialized to one of the two possible states, WeekdayState or WeekendState 
-    (WeekdayState in this case). This is to demonstrate the functionality of the State design pattern 
-    used in the Alternating Rate Strategy. It could just as easily have been WeekendState, this was
-    arbitrary. 
-    */
-    private final State state = new WeekdayState();
+    private final CoinMap map = new CoinMap();    
     
     /*This line assigns a rateStrategy to the paystation. With Linear and Progressive strategies, 
     the paystation need only be initialized with the appropriate strategy. With the Alternating 
     strategy, there must exist methods accessed during runtime (in the main method) in order to alternate between strategies.
     This is effectively a State design pattern encapsulated within a Strategy design pattern.
+    
+    rateStrategy is set to Linear RateStrategy as default
     */
-    RateStrategy rateStrategy = new RateStrategy(new AlternatingRateStrategy());
+    RateStrategy rateStrategy = new RateStrategy(new LinearRateStrategy());
 
     @Override
     public void addPayment(int coinValue)
