@@ -19,7 +19,7 @@
  */
 package paystation.domain;
 
-public interface PayStation {
+public interface PayStation{
 
     /**
      * Insert coin into the pay station and adjust state accordingly.

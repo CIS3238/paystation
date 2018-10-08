@@ -7,14 +7,14 @@ package paystation.domain;
 
 /**
  *
- * @author kyle
+ * @author 
  */
 public class CoinMap {
     
-    private int nickles = 0;
-    private int dimes = 0;
-    private int quarters = 0;
-    private int total = 0;
+    int nickles = 0;
+    int dimes = 0;
+    int quarters = 0;
+    int total = 0;
     
     public void CoinMap() {
     
