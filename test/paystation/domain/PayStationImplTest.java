@@ -15,6 +15,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
 
+import java.util.HashMap;
+
 public class PayStationImplTest {
 
     PayStation ps;
@@ -128,8 +130,7 @@ public class PayStationImplTest {
      * Verify that cancel clears the pay station
      */
     @Test
-    public void shouldClearAfterCancel()
-            throws IllegalCoinException {
+    public void shouldClearAfterCancel() throws IllegalCoinException {
         ps.addPayment(10);
         ps.cancel();
         assertEquals("Cancel should clear display",
@@ -138,4 +139,111 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
+
+    /**
+     * Call to cancel should clear the map.
+     */
+    @Test
+    public void shouldClearMapAfterCancel() throws IllegalCoinException {
+        ps.addPayment(10);
+        ps.cancel();
+        HashMap<Integer, Integer> emptyMap = (HashMap<Integer, Integer>) ps.cancel();
+        assertTrue("Cancel should clear map", emptyMap.isEmpty());
+    }
+
+    /**
+     * Call to cancel should return a map containing one coin entered.
+     */
+    @Test
+    public void cancelShouldReturnMapContainingOneCoin() throws IllegalCoinException {
+        ps.addPayment(25);
+        HashMap<Integer, Integer> returnedMap = (HashMap<Integer, Integer>) ps.cancel();
+        assertEquals("Cancel should return a map containing one coin entered",
+                1, returnedMap.size());
+        assertEquals("Cancel should return a map containing one coin entered",
+                1, (int) returnedMap.get(25));
+    }
+
+    /**
+     * Call to cancel should return a map containing a mixture of coins entered.
+     */
+    @Test
+    public void cancelShouldReturnMapContainingMixtureOfCoins() throws IllegalCoinException {
+        ps.addPayment(25);
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(5);
+        HashMap<Integer, Integer> returnedMap = (HashMap<Integer, Integer>) ps.cancel();
+        assertEquals("Cancel should return a map containing a mixture of coins entered",
+                3, returnedMap.size());
+        assertEquals("Cancel should return a map containing a mixture of coins entered",
+                1, (int) returnedMap.get(25));
+        assertEquals("Cancel should return a map containing a mixture of coins entered",
+                1, (int) returnedMap.get(10));
+        assertEquals("Cancel should return a map containing a mixture of coins entered",
+                2, (int) returnedMap.get(5));
+    }
+
+    /**
+     * Call to cancel should return a map that does not contain a key for a coin not entered.
+     */
+    @Test
+    public void cancelShouldReturnMapNotContainingKeyNotEntered() throws IllegalCoinException {
+        assertFalse("Returned map should not create key for a coin not entered",
+                ps.cancel().containsKey(25));
+        ps.addPayment(25);
+        assertFalse("Returned map should not create key for a coin not entered",
+                ps.cancel().containsKey(5));
+    }
+
+    /**
+     * Call to empty returns the total amount entered.
+     */
+    @Test
+    public void emptyReturnsTotalEntered() throws IllegalCoinException {
+        ps.addPayment(10);
+        ps.buy();
+        assertEquals("Empty should show total amount entered",
+                10, ps.empty());
+    }
+
+    /**
+     * Call to empty returns the total amount entered.
+     */
+    @Test
+    public void cancelDoesNotAddFromEmpty() throws IllegalCoinException {
+        ps.addPayment(25);
+        ps.buy();
+        ps.addPayment(25);
+        ps.cancel();
+        assertEquals("Empty should not include cancelled amount entered",
+                25, ps.empty());
+    }
+
+    /**
+     * Call to empty resets totalCollected to 0
+     */
+    @Test
+    public void emptyResetsTotalCollected() throws IllegalCoinException {
+        ps.addPayment(25);
+        ps.buy();
+        ps.addPayment(25);
+        ps.buy();
+        assertEquals("Empty should return total collected.",
+                50, ps.empty());
+        assertEquals("Previous empty should have reset total to zero.",
+                0, ps.empty());
+    }
+
+    /**
+     * Call to buy should clear the map.
+     */
+    @Test
+    public void shouldClearMapAfterBuy() throws IllegalCoinException {
+        ps.addPayment(25);
+        ps.buy();
+        HashMap<Integer, Integer> emptyMap = (HashMap<Integer, Integer>) ps.cancel();
+        assertTrue("Buy should clear map.", emptyMap.isEmpty());
+    }
+
 }
